@@ -1,0 +1,288 @@
+###############################################################################################################
+
+[RPCs]
+
+Ethereum  = 'https://eth.llamarpc.com'
+Optimism  = 'https://rpc.ankr.com/optimism'
+BSC       = 'https://rpc.ankr.com/bsc'
+Gnosis    = 'https://rpc.gnosischain.com'
+Polygon   = 'https://polygon.llamarpc.com'
+Fantom    = 'https://rpc.fantom.network'
+Arbitrum  = 'https://arb1.arbitrum.io/rpc'
+Avalanche = 'https://avalanche-c-chain.publicnode.com'
+zkSync    = 'https://mainnet.era.zksync.io'
+
+###############################################################################################################
+
+[Timings]
+
+# Время ожидания между выполнением разных акков рандомное в указанном диапазоне
+NEXT_ADDRESS_MIN_WAIT_TIME = 0.5  # В минутах
+NEXT_ADDRESS_MAX_WAIT_TIME = 1.5  # В минутах
+
+# Время ожидания между транзакциями одного аккаунта
+NEXT_TX_MIN_WAIT_TIME = 6   # В секундах
+NEXT_TX_MAX_WAIT_TIME = 12  # В секундах
+
+# Максимальное кол-во попыток сделать запрос/транзакцию если они фейлятся
+MAX_TRIES = 3
+
+# Макисамльный газ прайс, при котором делать транзакции в Ethereum
+MAX_ETH_GAS_PRICE = 20
+# Максимальный газ прайс, при котором делать транзакции в zkSync
+MAX_ZKSYNC_GAS_PRICE = 0.4
+
+# Сколько секунд ждать до следующей проверки газ прайса
+WAIT_GAS_TIME = 10
+# Сколько всего секунд ждать лучшего газ прайса,
+# если за это время газ прайс не понизится до нужного значения, будет ошибка
+TOTAL_WAIT_GAS_TIME = 3600
+
+
+###############################################################################################################
+
+[Telegram]
+
+# Токен и chat id бота в тг. Можно оставить пустым.
+TELEGRAM_BOT_TOKEN = ''
+TELEGRAM_CHAT_ID = 0
+# При true, скрипт выдает ваш chat id для отправки сообщений в боте. Бриджи не запускаются
+GET_TELEGRAM_CHAT_ID = false
+
+###############################################################################################################
+
+[Settings]
+
+###############################################################################################################
+
+# Если предыдущий запуск скрипта закончился раньше запланированного,
+# то можно "восстановить" весь прогресс, чтобы не делать лишних операций.
+# Вся информация каждого запуска записывается в results/date-time/stats.csv
+# Чтобы восстановить прогресс, содержимое этого файла надо скопировать в files/stats.csv
+RESTORE_PREVIOUS_RUNS = false
+
+###############################################################################################################
+
+# Здесь указывается количество действий, которые скрипт будет делать для всех акков.
+# Для каждого аккаунта выбирается рандомное значение в диапазоне.
+# Так же указываются какие протоколы использовать для конкретного действия.
+# Каждый раз будет выбираться рандомный протокол из списка.
+
+BRIDGE_COUNT = [0, 0]
+# Доступные значения: 'Official Bridge', 'Orbiter', 'Bungee'
+BRIDGE_DAPPS = ['Official Bridge', 'Orbiter', 'Bungee']
+
+SELF_SEND_COUNT = [0, 0]
+
+SEND_COUNT = [0, 0]
+
+SWAPS_COUNT = [0, 0]
+# Доступные значения: '1inch', 'SyncSwap', 'Mute', 'Izumi', 'Odos', 'WooFi'
+SWAPS_DAPPS = ['1inch', 'SyncSwap', 'Mute', 'Izumi', 'Odos', 'WooFi']
+
+LIQUIDITY_COUNT = [0, 0]
+# Доступные значения: 'SyncSwap', 'Mute'
+LIQUIDITY_DAPPS = ['SyncSwap', 'Mute']
+
+REMOVE_LIQUIDITY_COUNT = [0, 0]
+# Доступные значения: 'SyncSwap', 'Mute'
+# Ликвидность будет доставаться из каждого dApp из REMOVE_LIQUIDITY_DAPPS
+# Удобнее отслеживать будет фейлы, если тут указывать только один dApp
+REMOVE_LIQUIDITY_DAPPS = ['Mute']
+
+CLAIM_LIQUIDITY_COUNT = [0, 0]
+# Доступные значения: 'Mute'
+CLAIM_LIQUIDITY_DAPPS = ['Mute']
+
+# В Mute стейкинг доступен только для USDC/ETH
+STAKING_COUNT = [0, 0]
+# Доступные значения: 'Mute'
+STAKING_DAPPS = ['Mute']
+
+UNSTAKE_COUNT = [0, 0]
+# Доступные значения: 'Mute'
+# Анстейкинг будет делаться для каждого dApp из UNSTAKE_DAPPS
+# Удобнее отслеживать будет фейлы, если тут указывать только один dApp
+UNSTAKE_DAPPS = ['Mute']
+
+CLAIM_STAKING_COUNT = [0, 0]
+# Доступные значения: 'Mute'
+CLAIM_STAKING_DAPPS = ['Mute']
+
+# В EraLend Lend/Borrow доступен только в ETH и USDC
+LENDING_COUNT = [0, 0]
+# Доступные значения: 'EraLend'
+LENDING_DAPPS = ['EraLend']
+
+# Borrow включает в себе лендинг
+BORROW_COUNT = [0, 0]
+# Доступные значения: 'EraLend'
+BORROW_DAPPS = ['EraLend']
+
+MINT_COUNT = [0, 0]
+# Доступные значения: 'ZkNs', 'ZnsID'
+# 'ZkNs' - zkns.domains - платный домен.
+# 'ZnsID' - zns.id - бесплатный домен. DYOR
+MINT_DAPPS = ['ZnsID']
+
+###############################################################################################################
+
+[Settings.BRIDGE]
+
+# Official Bridge:
+# Токены: 'ETH'
+# Сети:
+# Из Ethereum в zkSync
+# Из zkSync в Ethereum
+#
+# Orbiter:
+# Токены: 'ETH' (WETH)
+# Сети:
+# Из Ethereum, Arbitrum, Optimism, Polygon, BSC в zkSync
+# Из zkSync в Ethereum, Arbitrum, Optimism, Polygon, BSC
+#
+# Bungee:
+# Токены: 'ETH' (WETH), 'USDC' (USDC.E), 'USDT' (USDT.E)
+# Сети:
+# Из Ethereum, Arbitrum, Optimism, Polygon, BSC в zkSync
+# Из zkSync в Ethereum, Arbitrum, Optimism, Polygon, BSC
+#
+# Токены которые будут использоваться в скрипте для бриджей.
+TOKENS_TO_BRIDGE = ['ETH', 'WETH']
+
+# Доступные значения:
+# 'Ethereum', 'Arbitrum', 'Optimism', 'zkSync', 'Polygon', 'BSC', 'Avalanche'
+#
+# Из каких сетей бриджить. Среди указанных сетей ищет из какой можно забриджить соответствуя указанным параметрам.
+BRIDGE_CHAINS_FROM = ['Arbitrum']
+# В какие сети бриджить.
+BRIDGE_CHAINS_TO = ['zkSync']
+
+# Минимальный баланс ETH (WETH), на который скрипт будет триггериться для бриджа.
+# WETH считается за ETH для сетей Polygon, BSC и Avalanche.
+BRIDGE_ETH_MIN_TRIGGER = 0.0001
+
+# Сколько ETH бриджить. Выбирается рандомное значение в диапазоне.
+# WETH считается за ETH для сетей Polygon, BSC и Avalanche.
+BRIDGE_ETH_AMOUNT = [0.005, 0.007]
+
+# Сколько бриджить нейтив токена в процентах. Если стоит -1, то используется BRIDGE_ETH_AMOUNT, иначе берется процент.
+# Во всех переменных связанных с процентом, в итоге рассчитывается рандомное значение
+# в небольшом диапазоне вокруг указанного процента (+- 1% от указанного процента)
+BRIDGE_ETH_PERCENT = -1
+
+# Минимальный баланс стейбла, на который скрипт будет триггериться для бриджа
+BRIDGE_STABLE_MIN_TRIGGER = 10
+# Сколько стейблов бриджить. Выбирается рандомное значение в диапазоне.
+BRIDGE_STABLE_AMOUNT = [5, 10]
+# Сколько стейблов бриджить в процентах. Если стоит -1, то используется BRIDGE_STABLE_AMOUNT, иначе берется процент.
+BRIDGE_STABLE_PERCENT = -1
+
+# Если true, то на каждом акке сначала забриджит, а потом будут выполняться остальные действия.
+BRIDGE_BEFORE_ALL = true
+# Ожидание бриджа в секундах. Скрипт продолжит прогонять остальные акки, не останавливаясь.
+BRIDGE_WAIT_TIME = 600
+
+###############################################################################################################
+
+[Settings.TOKENS]
+
+# 1inch:
+# 'ETH', 'WETH', 'USDC', 'USD+', 'LUSD', 'MUTE'
+#
+# SyncSwap:
+# 'ETH', 'WETH', 'USDC', 'USDT', 'ceBUSD', 'Cheems', 'ZAT', 'USD+', 'zkUSD', 'DVF', 'LUSD', 'WBTC', 'rETH', 'FRAX', 'MUTE'
+#
+# Mute:
+# 'ETH', 'WETH', 'USDC', 'USD+', 'LUSD', 'MUTE'
+#
+# EraLend:
+# 'ETH', 'USDC'
+#
+# Izumi:
+# 'ETH', 'WETH', 'USDC', 'iZi', 'iUSD', 'BUSD', 'Cheems'
+#
+# Odos:
+# 'ETH', 'WETH', 'USDC', 'USD+', 'LUSD', 'MUTE', 'USDT', 'iZi', 'iUSD', 'WBTC', 'ZAT'
+#
+# WooFi:
+# 'ETH', 'USDC'
+# Токены которые будут использоваться в скрипте для всех действий кроме бриджа.
+TOKENS_TO_USE = ['ETH', 'USDC', 'USD+', 'MUTE', 'ZAT']
+
+###############################################################################################################
+
+[Settings.SEND]
+
+# Сколько ETH отправлять селф транзакцией. Выбирается рандомное значение в диапазоне.
+SEND_ETH_SELF_AMOUNT = [0.000005, 0.00002]
+# Сколько процента от баланса ETH отправлять селф транзакцией.
+# Если стоит -1, то используется SEND_ETH_SELF_AMOUNT, иначе берется процент.
+SEND_ETH_SELF_PERCENT = 90
+# Сколько ETH отправлять на рандомные кошельки. Выбирается рандомное значение в диапазоне.
+SEND_ETH_TO_RANDOM_AMOUNT = [0.000005, 0.00002]
+
+[Settings.SWAP]
+
+# Делаются свапы только в ETH.
+SWAP_ONLY_TO_ETH = false
+
+# Сколько оставлять ETH при свапе на другой токен. Выбирается рандомное значение в диапазоне.
+ETH_TO_LEAVE = [0.003, 0.005]
+# Сколько свапать ETH в процентах. Если стоит -1, то используется ETH_TO_LEAVE, иначе берется процент.
+SWAP_ETH_PERCENT = -1
+# Сколько свапать в процентах для всех токенов кроме ETH.
+SWAP_ALT_PERCENT = 100
+
+# Не свапаются токены на сумму меньше указанной в $
+MIN_USD_SWAP_THRESHOLD = 0.01
+
+# Сколько максимум в процентах от изначальной суммы в $ можно потерять при свапе.
+MAX_USD_SWAP_LOSS = 1
+
+# Slippage при свапах
+SWAP_SLIPPAGE = 1
+
+[Settings.LIQUIDITY]
+
+# Сколько добавлять ETH в пулы ликвидности. Выбирается рандомное значение в диапазоне.
+ADD_LIQUIDITY_ETH = [0.00001, 0.0001]
+# Какой процент от баланса добавляется в пулы ликвидности. Для всех токенов кроме ETH.
+ADD_LIQUIDITY_ALT_PERCENT = 0.1
+
+# Если не нашло токенов для добавления в пул, то автоматически сделает свап.
+AUTO_SWAP = true
+
+[Settings.REMOVE_LIQUIDITY]
+
+# Какой процент ликвидности выводить. Проходится по всем пулам токенов из TOKENS_TO_USE и включенных dApps.
+REMOVE_LIQUIDITY_PERCENT = 95
+
+[Settings.STAKING]
+
+# Еслине нашло LP-токенов для стейкинга, то автоматически добавит в пул.
+AUTO_ADD_LIQUIDITY = true
+
+[Settings.LENDING]
+
+# Сколько добавлять ETH в лендинг. Выбирается рандомное значение в диапазоне.
+LENDING_ETH = [0.00005, 0.0001]
+# Какой процент от баланса добавляется в лендинг. Для всех токенов кроме ETH.
+LENDING_ALT_PERCENT = 1
+
+# Какой процент от максимально допустимого брать. Выбирается рандомное значение в диапазоне.
+BORROW_PERCENT = [50, 100]
+
+[Settings.MINT]
+
+# Цена домена на zkns.domains от 6 до 10 символов
+ZK_NS_PRICE = 0.0029
+
+[Options]
+
+# В zkSync газ рассчитывается излишне большой.
+ZK_SYNC_GAS_DIVIDER = 1.5
+
+# Не менять
+L2_GAS_PER_PUBDATA_BYTE_LIMIT = 800
+SOCKET_API_KEY = '1b2fd225-062f-41aa-8c63-d1fef19945e7'
